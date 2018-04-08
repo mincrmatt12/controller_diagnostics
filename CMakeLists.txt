@@ -5,9 +5,11 @@ project(controller_diagnostics)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  diagnostics
-  ros_control
-  roscpp
+  diagnostic_msgs
+        roscpp
+        diagnostic_updater
+        controller_interface
+        hardware_interface
 )
 
 ## System dependencies are found with CMake's conventions
@@ -100,9 +102,9 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES controller_diagnostics
-#  CATKIN_DEPENDS diagnostics ros_control roscpp
+  INCLUDE_DIRS include
+  LIBRARIES controller_diagnostics
+  CATKIN_DEPENDS hardware_interface controller_interface diagnostic_updater diagnostic_msgs
 #  DEPENDS system_lib
 )
 
@@ -112,23 +114,23 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-# include_directories(include)
+include_directories(include)
 include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
-# add_library(controller_diagnostics
-#   src/${PROJECT_NAME}/controller_diagnostics.cpp
-# )
+add_library(controller_diagnostics
+   src/diagnostic_controller.cpp
+)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
-# add_dependencies(controller_diagnostics ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(controller_diagnostics ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-# add_executable(controller_diagnostics_node src/controller_diagnostics_node.cpp)
+## add_executable(controller_diagnostics_node src/controller_diagnostics_node.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above

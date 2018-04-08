@@ -1,0 +1,5 @@
+<library path="lib/libcontroller_diagnostics">
+    <class name="controller_diagnostics/DiagnosticController" type="controller_diagnostics::DiagnosticController" base_class_type="controller_interface::ControllerBase">
+        <description>Publishes diagnostic data coming from hardware interfaces</description>
+    </class>
+</library>
