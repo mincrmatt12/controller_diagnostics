@@ -20,7 +20,7 @@ namespace controller_diagnostics {
         }
 
         for (const auto &e : names) {
-            auto u = new diagnostic_updater::Updater(nodeHandle, ros::NodeHandle(nodeHandle, e), name);
+            auto u = new diagnostic_updater::Updater(nodeHandle, ros::NodeHandle(nodeHandle, e), "/" + name);
             u->setHardwareID(t->getHandle(e).getDHD().hardwareID);
             u->add(e, boost::bind(&DiagnosticController::do_diag, this, _1, e));
             this->updaters[e] = u;
