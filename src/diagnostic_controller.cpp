@@ -22,6 +22,8 @@ namespace controller_diagnostics {
         }
 
         this->dsi = t;
+
+        return true;
     }
 
     DiagnosticController::~DiagnosticController() {
