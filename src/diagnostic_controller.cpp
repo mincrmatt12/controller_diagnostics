@@ -15,7 +15,7 @@ namespace controller_diagnostics {
         ROS_DEBUG_STREAM("Got " << names.size() << " diagnostics");
         std::string name;
         if (!nodeHandle.getParam("name", name)) {
-            ROS_FATAL_STREAM("Failed to start diagnostic_controller: couldn't read parameter name!")
+            ROS_FATAL_STREAM("Failed to start diagnostic_controller: couldn't read parameter name!");
             return false;
         }
 
