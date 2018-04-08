@@ -7,8 +7,8 @@
 
 #include <hardware_interface/internal/hardware_resource_manager.h>
 #include <diagnostic_msgs/DiagnosticStatus.h>
-#include <string>
 #include <map>
+#include <utility>
 
 namespace controller_diagnostics {
 
@@ -21,13 +21,13 @@ namespace controller_diagnostics {
 
     class DiagnosticHandle {
     public:
-        DiagnosticHandle(const std::string& name, const DiagnosticHandleData *dhd) : name(name), dhd(dhd) {}
+        DiagnosticHandle(std::string name, const DiagnosticHandleData *dhd) : name(name), dhd(dhd) {}
 
         std::string getName()         const {return this->name;}
         DiagnosticHandleData getDHD() const {return *this->dhd;}
 
     private:
-        const std::string name;
+        std::string name;
         const DiagnosticHandleData *dhd;
     };
 

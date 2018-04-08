@@ -15,24 +15,26 @@ namespace controller_diagnostics {
         ROS_DEBUG_STREAM("Got " << names.size() << " diagnostics");
 
         for (const auto &e : names) {
-            auto u = diagnostic_updater::Updater(nodeHandle, ros::NodeHandle(nodeHandle, e));
-            u.setHardwareID(t->getHandle(e).getDHD().hardwareID);
-            u.add(e, boost::bind(&DiagnosticController::do_diag, this, _1, e));
+            auto u = new diagnostic_updater::Updater(nodeHandle, ros::NodeHandle(nodeHandle, e));
+            u->setHardwareID(t->getHandle(e).getDHD().hardwareID);
+            u->add(e, boost::bind(&DiagnosticController::do_diag, this, _1, e));
             this->updaters[e] = u;
         }
 
         this->dsi = t;
     }
 
-
-
-    void controller_diagnostics::DiagnosticController::update(const ros::Time &time, const ros::Duration &period) {
-        for (const auto &e : this->updaters) {
-            e.second.update();
+    DiagnosticController::~DiagnosticController() {
+        for (auto e : this->updaters) {
+            delete e.second;
         }
     }
 
-    DiagnosticController::~DiagnosticController() = default;
+    void controller_diagnostics::DiagnosticController::update(const ros::Time &time, const ros::Duration &period) {
+        for (const auto &e : this->updaters) {
+            e.second->update();
+        }
+    }
 
     void DiagnosticController::do_diag(diagnostic_updater::DiagnosticStatusWrapper &stat, std::string e) {
         DiagnosticHandleData hd = this->dsi->getHandle(e).getDHD();

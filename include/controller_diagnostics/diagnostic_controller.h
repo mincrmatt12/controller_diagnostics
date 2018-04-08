@@ -21,7 +21,7 @@ namespace controller_diagnostics {
         virtual ~DiagnosticController();
 
     private:
-        std::map<std::string, diagnostic_updater::Updater> updaters;
+        std::map<std::string, diagnostic_updater::Updater *> updaters;
         DiagnosticStateInterface *dsi;
     };
 
