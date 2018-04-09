@@ -13,8 +13,8 @@
 namespace controller_diagnostics {
 
     struct DiagnosticHandleData {
-        std::string message;
-        unsigned char status;
+        std::string message = "";
+        unsigned char status = diagnostic_msgs::DiagnosticStatus::STALE;
         std::map<std::string, std::string> data;
         std::string hardwareID;
     };
