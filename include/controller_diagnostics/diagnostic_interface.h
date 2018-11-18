@@ -23,8 +23,8 @@ namespace controller_diagnostics {
     public:
         DiagnosticHandle(std::string name, const DiagnosticHandleData *dhd) : name(name), dhd(dhd) {}
 
-        std::string getName()         const {return this->name;}
-        DiagnosticHandleData getDHD() const {return *this->dhd;}
+        std::string getName()                const {return this->name;}
+        const DiagnosticHandleData & getDHD() const {return *this->dhd;}
 
     private:
         std::string name;
